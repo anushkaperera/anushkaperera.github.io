@@ -13,7 +13,7 @@ model pidsiso
   Real x(start=x_ss);
 
   // PI controller parameters: Use some tuning rules here, for example, SIMC.
-  parameter Real tauc = 1;
+  parameter Real tauc = taud;
   parameter Real k = (1 / kp) * tau / (tauc + taud);
   parameter Real Ti = min(tau, 4 * (tauc + taud));
   
