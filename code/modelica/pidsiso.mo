@@ -6,8 +6,7 @@ model pidsiso
   parameter Real k = 1;
   parameter Real Ti = 1;
   parameter Boolean auto = false;
-  Modelica.Blocks.Continuous.LimPID PID(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = k, Ti = Ti)  annotation(
-    Placement(transformation(origin = {-10, 4}, extent = {{-10, -10}, {10, 10}})));
+  Modelica.Blocks.Continuous.LimPID PID(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = k, Ti = Ti);
 equation
   PID.u_s = 1;
   PID.u_m = x;
