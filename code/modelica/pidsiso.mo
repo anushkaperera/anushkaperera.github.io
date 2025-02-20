@@ -2,7 +2,8 @@ model pidsiso
   // Model parameters: Time constant and gain
   parameter Real tau = 1;
   parameter Real kp = 1;
-
+  parameter Real taud = 1;
+  
   // Steady state
   parameter Real u_ss = 1;
   parameter Real x_ss = kp * u_ss;
@@ -12,8 +13,9 @@ model pidsiso
   Real x(start=x_ss);
 
   // PI controller parameters: Use some tuning rules here, for example, SIMC.
-  parameter Real k = 1;
-  parameter Real Ti = 1;
+  parameter Real tauc = 1;
+  parameter Real k = (1 / kp) * tau / (tauc + taud);
+  parameter Real Ti = min(tau, 4 * (tauc + taud));
   
   // PI controller state and setpoint
   Real z(start=(Ti / k) * u_ss);
@@ -25,5 +27,5 @@ equation
   u = k * (sp - x) + (k / Ti) * z;
   
   // Model
-  tau * der(x) + x = kp * u;
+  tau * der(x) + x = kp * delay(u, taud);
 end pidsiso;
