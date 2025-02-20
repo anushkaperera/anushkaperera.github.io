@@ -14,12 +14,16 @@ model pidsiso
   // PI controller parameters
   parameter Real k = 1;
   parameter Real Ti = 1;
-  Modelica.Blocks.Continuous.LimPID PID(controllerType = Modelica.Blocks.Types.SimpleController.PI, k = k, Ti = Ti, initType = Modelica.Blocks.Types.Init.InitialOutput, y_start = x_ss);
+  
+  // PI controller state and setpoint
+  Real z(start=(Ti / k) * u_ss);
+  Real sp;
 equation
   // Controller
-  PID.u_s = if time < 10 then 1 else 1.5;
-  PID.u_m = x;
-  PID.y = u;
+  sp = if time < 10 then x_ss else 1.5 * x_ss;
+  der(z) = sp - x;
+  u = k * (sp - x) + (k / Ti) * z;
+  
   // Model
   tau * der(x) + x = kp * u;
 end pidsiso;
