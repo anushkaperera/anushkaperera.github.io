@@ -13,8 +13,8 @@ m.y = Var(m.t)
 m.dx = DerivativeVar(m.x)
 m.dy = DerivativeVar(m.y)
 
-m.x[0.0].fix(0.0)
-m.y[0.0].fix(0.0)
+m.x[0.0].fix(1.0)
+m.y[0.0].fix(-1.0)
 
 def u(t):
     return 1.0
