@@ -20,8 +20,8 @@ def ode_y(m, t):
     return m.y_dot[t] == mu * (1.0 - m.x[t] * m.x[t]) * m.y[t] - m.x[t]
 
 m.pc = ConstraintList()
-m.pc.add(m.x[0]==0)
-m.pc.add(m.y[0]==0)
+m.pc.add(m.x[0]==1.0)
+m.pc.add(m.y[0]==-1.0)
 
 TransformationFactory('dae.finite_difference').apply_to(m, wrt=m.t, nfe=30)
 SolverFactory('ipopt').solve(m).write()
