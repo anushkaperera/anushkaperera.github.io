@@ -1,4 +1,3 @@
-%matplotlib inline
 from itertools import chain
 import logging
 from mpl_toolkits.mplot3d import Axes3D  
